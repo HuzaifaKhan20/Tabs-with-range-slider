@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Range Slider Demo</title>
+	<style>
+		/* Style for the range slider */
+		.slider {
+			-webkit-appearance: none;
+			width: 100%;
+			height: 10px;
+			background: #ddd;
+			outline: none;
+			opacity: 0.7;
+			-webkit-transition: .2s;
+			transition: opacity .2s;
+		}
+
+		.slider:hover {
+			opacity: 1;
+		}
+
+		/* Style for the slider thumb */
+		.slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 20px;
+			height: 20px;
+			background: #4CAF50;
+			cursor: pointer;
+		}
+
+		.slider::-moz-range-thumb {
+			width: 20px;
+			height: 20px;
+			background: #4CAF50;
+			cursor: pointer;
+		}
+		
+		/* Style for the tabs */
+		.tab {
+			display: none;
+		}
+
+		/* Style for the active tab */
+		.tab.active {
+			display: block;
+		}
+
+        .tab-click {
+            border-radius: 15px;
+            padding: 15px 10px;
+            background-color: #4CAF50;
+            margin: 10px 5px;
+        }
+
+        .tab-head {
+            display: flex;
+        }
+	</style>
+</head>
+<body>
+
+	<!-- Range slider -->
+	<input type="range" min="1" max="3" step="1" value="1"  id="myRange">
+
+	<!-- Tabs -->
+    <div class="tab-head">
+        <div class="tab-click">tab 1</div>
+        <div class="tab-click">tab 2</div>
+        <div class="tab-click">tab 3</div>
+    </div>
+	<div class="tab active" id="tab1">
+		<h2>Tab 1</h2>
+		<p>This is the content for tab 1.</p>
+	</div>
+
+	<div class="tab" id="tab2">
+		<h2>Tab 2</h2>
+		<p>This is the content for tab 2.</p>
+	</div>
+
+	<div class="tab" id="tab3">
+		<h2>Tab 3</h2>
+		<p>This is the content for tab 3.</p>
+	</div>
+
+	<script>
+		// Get the range slider and tabs
+		var slider = document.getElementById("myRange");
+		var tabs = document.getElementsByClassName("tab");
+        var tabss = document.getElementsByClassName("tab-click");
+		// Update the active tab and content when the slider is moved
+		slider.oninput = function() {
+			for (var i = 0; i < tabs.length; i++) {
+				tabs[i].classList.remove("active");
+			}
+			tabs[this.value - 1].classList.add("active");
+		}
+
+		// Update the active tab and slider value when a tab is clicked
+		for (var i = 0; i < tabs.length; i++) {
+			tabss[i].addEventListener("click", function() {
+				for (var j = 0; j < tabs.length; j++) {
+					if (tabss[j] === this) {
+						// Set the active tab
+						tabs[j].classList.add("active");
+
+						// Update the slider value
+						slider.value = j + 1;
+
+					} else {
+						// Clear the active tab
+						tabs[j].classList.remove("active");
+					}
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
